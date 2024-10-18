@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-first-pod-nginx
+  namespace: my-first-pod
+  labels:
+    name: my-first-pod-nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx # specify better tag version 
+      resources:
+        requests:
+          cpu: 250m # 0.5 vcore 
+          memory: 25M
+        limits: # /!\  
+          cpu: 500m # 0.5 vcore 
+          memory: 250M
+      ports:
+      - containerPort: 80

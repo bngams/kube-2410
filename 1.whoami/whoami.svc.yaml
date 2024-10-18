@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: whoami
+  name: whoami
+  labels:
+    name: whoami
+spec:
+  type: ClusterIP
+  selector:
+    # labels <key>: <value> 
+    name: whoami
+  ports:
+  - port: 80
+    targetPort: 80

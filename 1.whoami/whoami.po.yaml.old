@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: whoami
+  name: whoami
+  # selector request 
+  labels:
+    name: whoami
+spec:
+  containers:
+  - name: whoami
+    image: containous/whoami
+    resources:
+      # min requierements  
+      requests: 
+        memory: "64Mi"
+        cpu: "250m"
+      # mandatory for system safety 
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    # TODO: complete status
+    # https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-liveness-command  
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    # TODO: log driver, rotate? 
+    # wait other container? ..  
+    ports:
+      - containerPort: 80

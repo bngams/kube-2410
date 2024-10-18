@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: whoami
+  name: whoami
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 2
+  selector:
+    matchLabels:
+      app: whoami
+  template:
+    metadata:
+      namespace: whoami
+      labels:
+        app: whoami
+        name: whoami
+        version: v4
+    spec:
+      containers:
+      - name: whoami
+        image: containous/whoami
+        resources:
+          # min requierements  
+          requests: 
+            memory: "64Mi"
+            cpu: "250m"
+          # mandatory for system safety 
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        # TODO: complete status
+        # https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-liveness-command  
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        # TODO: log driver, rotate? 
+        # wait other container? ..  
+        ports:
+          - containerPort: 80

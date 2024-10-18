@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: whoami
+  name: whoami
+  labels:
+    name: whoami
+spec:
+  rules:
+  - host: whoami.kube
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: whoami
+            port: 
+              number: 80
