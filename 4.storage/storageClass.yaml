@@ -1,0 +1,7 @@
+# same as standard storage class from minikube 
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/minikube-hostpath
+allowVolumeExpansion: true
